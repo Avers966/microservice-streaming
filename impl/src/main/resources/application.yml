@@ -12,18 +12,21 @@ spring:
     exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 
 kafka:
-  bootstrap-servers: kafka-service.skillbox-alpha-kafka.svc.cluster.local:9092
+  bootstrap-servers: 82.202.214.42:9094
   consumer:
     group-id: streaming.1
     concurrency: 3
-    max.poll.interval.ms: 1000
-    spring.json.trusted.packages: ru.skillbox.diplom.group35.*
+    max-poll-interval-ms: 1000
+    spring-json-trusted-packages: ru.skillbox.diplom.group35.*
   producer:
     retries: 3
-
-app:
   topic:
-    account: topic-account
+    partition-count: 3
+    replication-factor: 1
+    reply-account: t.account.online
+    reply-dialog: t.dialog.message.in
+    request-dialog: t.dialog.message.out
+    request-notification: event.streaming
 
 logging:
   level:

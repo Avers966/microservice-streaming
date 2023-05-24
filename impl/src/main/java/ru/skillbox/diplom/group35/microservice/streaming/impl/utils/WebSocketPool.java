@@ -11,23 +11,23 @@ import org.springframework.web.socket.WebSocketSession;
  * @author Marat Safagareev
  */
 @Component
-public class WebSocketContext {
+public class WebSocketPool {
 
-  private final ConcurrentHashMap<UUID, WebSocketSession> websocketContext = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<UUID, WebSocketSession> websocketPool = new ConcurrentHashMap<>();
 
-  public boolean contextContains(UUID accountId) {
-    return websocketContext.containsKey(accountId);
+  public boolean poolContains(UUID accountId) {
+    return websocketPool.containsKey(accountId);
   }
 
   public void addSession(UUID accountId, WebSocketSession session) {
-    websocketContext.put(accountId, session);
+    websocketPool.put(accountId, session);
   }
 
   public WebSocketSession getSession(UUID accountId) {
-    return websocketContext.get(accountId);
+    return websocketPool.get(accountId);
   }
 
   public void removeSession(UUID accountId) {
-    websocketContext.remove(accountId);
+    websocketPool.remove(accountId);
   }
 }
