@@ -1,9 +1,23 @@
 server:
   port: 8080
 
-app:
+kafka:
+  bootstrap-servers: 82.202.214.42:9094
+#  bootstrap-servers: localhost:9092
+  consumer:
+    group-id: streaming.1
+    concurrency: 3
+    max-poll-interval-ms: 1000
+    spring-json-trusted-packages: ru.skillbox.diplom.group35.*
+  producer:
+    retries: 3
   topic:
-    account: topic-account
+    partition-count: 3
+    replication-factor: 1
+    reply-account: t.account.online
+    reply-dialog: t.dialog.message.in
+    request-dialog: t.dialog.message.out
+    request-notification: event.streaming
 
 spring:
   security:
@@ -22,17 +36,6 @@ spring:
         monitoring-config-maps: false
       enabled: false
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
-        format_sql: true
-        default_schema: post
-    open-in-view: false
-
   cache:
     type: simple
   redis.host: redis
@@ -44,7 +47,7 @@ spring:
 
 logging:
   level:
-    org.springframework: debug
+    org.springframework: info
   file:
     name: application.log
   logback:
