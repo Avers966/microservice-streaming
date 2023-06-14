@@ -29,7 +29,7 @@ public class KafkaConsumerService extends AbstractConsumerSeekAware {
   public void receiveMessage(
       @Payload StreamingMessageDto<MessageDto> streamingMessageDto,
       Acknowledgment acknowledgment) {
-    log.info("Received message: {}", streamingMessageDto.getData().getMessageText());
+    log.info("Received message from dialog service: {}", streamingMessageDto.getData().getMessageText());
     acknowledgment.acknowledge();
     streamingService.sendToSocketMessage(streamingMessageDto);
   }

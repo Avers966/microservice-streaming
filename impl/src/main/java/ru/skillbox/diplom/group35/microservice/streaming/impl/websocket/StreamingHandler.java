@@ -27,7 +27,7 @@ public class StreamingHandler extends TextWebSocketHandler {
   public void handleTextMessage(@NotNull WebSocketSession session, @NotNull TextMessage message)
       throws IOException {
     log.info("New message: {}", message);
-    service.handleMessage(session, message);
+    service.handleMessage(message);
   }
 
   @Override
