@@ -15,13 +15,13 @@ kafka:
   bootstrap-servers: 82.202.214.42:9094
   consumer:
     group-id: streaming.1
-    concurrency: 3
+    concurrency: 1
     max-poll-interval-ms: 1000
     spring-json-trusted-packages: ru.skillbox.diplom.group35.*
   producer:
     retries: 3
   topic:
-    partition-count: 3
+    partition-count: 1
     dialog-partition-count: 1
     replication-factor: 1
     reply-account: t.account.online
