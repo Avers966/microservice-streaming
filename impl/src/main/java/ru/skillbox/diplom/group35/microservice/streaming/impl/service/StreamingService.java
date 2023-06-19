@@ -53,7 +53,8 @@ public class StreamingService {
     webSocketPool.removeSession(accountId);
   }
 
-  public void handleMessage(TextMessage message) throws IOException {
+  public void handleMessage(WebSocketSession session, TextMessage message) throws IOException {
+    UUID authorId = getAccountId(session);
     String payload = message.getPayload();
     log.info("Received message from user: {}", payload);
     JsonNode jsonNode = objectMapper.readTree(payload);
@@ -61,8 +62,20 @@ public class StreamingService {
       StreamingMessageDto<MessageDto> streamingMessageDto = objectMapper.readValue(payload, type);
       streamingMessageDto.getData().setReadStatus(MESSAGE_STATUS_SENT);
       streamingMessageDto.getData().setTime(ZonedDateTime.now());
-      transmitMessage(streamingMessageDto);
+      transmitMessage(reconstructStreamingMessage(authorId, streamingMessageDto));
     }
+  }
+
+  private StreamingMessageDto<MessageDto> reconstructStreamingMessage(UUID authorId,
+      StreamingMessageDto<MessageDto> dto) {
+    if (dto.getData().getConversationPartner2().equals(authorId)) {
+      dto.getData().setConversationPartner2(dto.getData().getConversationPartner1());
+    }
+    dto.getData().setConversationPartner1(authorId);
+    if (dto.getRecipientId().equals(authorId)) {
+      dto.setRecipientId(dto.getData().getConversationPartner2());
+    }
+    return dto;
   }
 
   public void sendToSocketMessage(@NotNull StreamingMessageDto<?> streamingMessageDto) {
