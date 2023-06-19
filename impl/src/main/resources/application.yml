@@ -22,6 +22,7 @@ kafka:
     retries: 3
   topic:
     partition-count: 3
+    dialog-partition-count: 1
     replication-factor: 1
     reply-account: t.account.online
     reply-dialog: t.dialog.message.in

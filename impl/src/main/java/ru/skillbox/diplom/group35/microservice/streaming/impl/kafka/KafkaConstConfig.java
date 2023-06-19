@@ -42,6 +42,9 @@ public class KafkaConstConfig {
   @Value(value = "${kafka.topic.partition-count}")
   private Integer partitionCount;
 
+  @Value(value = "${kafka.topic.dialog-partition-count}")
+  private Integer dialogPartitionCount;
+
   @Value(value = "${kafka.topic.replication-factor}")
   private Short replicationFactor;
 
