@@ -41,14 +41,14 @@ public class KafkaTopicConfig {
   @Bean
   public NewTopic replyDialogTopic() {
     return new NewTopic(kafkaConstConfig.getReplyDialogTopic(),
-        kafkaConstConfig.getPartitionCount(),
+        kafkaConstConfig.getDialogPartitionCount(),
         kafkaConstConfig.getReplicationFactor());
   }
 
   @Bean
   public NewTopic requestDialogTopic() {
     return new NewTopic(kafkaConstConfig.getRequestDialogTopic(),
-        kafkaConstConfig.getPartitionCount(),
+        kafkaConstConfig.getDialogPartitionCount(),
         kafkaConstConfig.getReplicationFactor());
   }
 
